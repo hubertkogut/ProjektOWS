@@ -37,6 +37,6 @@
         <ContentControl Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="8" 
                         x:Name="ActiveItem"/>
 
-        
+
     </Grid>
 </Window>

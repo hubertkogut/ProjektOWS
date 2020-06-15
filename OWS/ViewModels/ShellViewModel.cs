@@ -6,12 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace OWS.ViewModels
-    {
-
-    /// <summary>
-    /// klasa z logiką widoku ShellView aplikacji   
-    /// </summary>
-    public class ShellViewModel : Conductor<object>
+{
+    class ShellViewModel : Conductor<object>
     {
         /// <summary>
         /// Metody odpowiedzialne za ładowanie odpowiednich UserControl
@@ -20,7 +16,6 @@ namespace OWS.ViewModels
         {
             ActivateItem(new SlupPrzelotowyViewModel());
         }
-
         public void LoadSlupNarozny()
         {
             ActivateItem(new SlupNaroznyViewModel());
@@ -29,7 +24,6 @@ namespace OWS.ViewModels
         {
             ActivateItem(new TabelaObliczoneSlupyViewModel());
         }
-     
         public void LoadStrefaWiatrowa()
         {
             ActivateItem(new StrefaWiatrowaWViewModel());

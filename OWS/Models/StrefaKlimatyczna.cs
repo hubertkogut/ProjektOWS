@@ -8,8 +8,7 @@ using Caliburn.Micro;
 namespace OWS.Models
 {
     /// <summary>
-    /// Klasa StrefaKlimatyczna posiada 
-    /// posiada propercje i metode
+    /// Klasa StrefaKlimatyczna
     /// </summary>
     public class StrefaKlimatyczna
     {
@@ -17,7 +16,7 @@ namespace OWS.Models
         public string StrefaWiatrowa { get; set; }
         ///<value>propercja StrefaSadziowa</value> 
         public string StrefaSadziowa { get; set; }
-        
+
         /// <summary>
         /// metoda ZalSklimat tworzy liste typu StrefaKlimatyczna, Lista inicjalizowana jest przez 2
         /// obiekty typu StrefaKlimatyczna 
@@ -30,13 +29,13 @@ namespace OWS.Models
                 {
                     new StrefaKlimatyczna()
                     {
-                    
+
                         StrefaWiatrowa = "W1",
                         StrefaSadziowa = "S1"
                     },
-                     new StrefaKlimatyczna()
-                     {
-                        
+                    new StrefaKlimatyczna()
+                    {
+
                         StrefaWiatrowa = "W2",
                         StrefaSadziowa = "S2"
                     }
@@ -44,5 +43,5 @@ namespace OWS.Models
                 return Lista;
             }
         }
-        }
+    }
 }

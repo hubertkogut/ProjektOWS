@@ -1,10 +1,5 @@
 ﻿using Caliburn.Micro;
 using OWS.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OWS.ViewModels
 {
@@ -27,7 +22,7 @@ namespace OWS.ViewModels
         }
 
         /// <summary>
-        /// 
+        /// Konstruktor klasy TabelaObliczoneSlupyViewModel wczytujący obliczone słupy z bazy danych
         /// </summary>
         public TabelaObliczoneSlupyViewModel()
         {
@@ -35,5 +30,5 @@ namespace OWS.ViewModels
             Tabela = new BindableCollection<ObliczoneSlupy>(da.ZaladujTabele());
 
         }
-        }
+    }
 }

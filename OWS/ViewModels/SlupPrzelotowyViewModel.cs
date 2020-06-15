@@ -1,29 +1,13 @@
-﻿using Caliburn.Micro;
-using OWS.Models;
-using System;
-using System.CodeDom;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using System.Data;
-using Dapper;
-using OWS.ViewModels;
-using System.Windows.Input;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.CompilerServices;
+using Caliburn.Micro;
+using OWS.Models;
 
 namespace OWS.ViewModels
 {
-    /// <summary>
-    /// klasa z logiką widoku SlupPrzelotowyView   
-    /// </summary>
-    public class SlupPrzelotowyViewModel : Screen
+    public class SlupPrzelotowyViewModel : Screen, IDataErrorInfo
     {
-
         //ilosc kabli
         /// <summary>
         /// Propercje Ilosc Kabla Głównego
@@ -34,8 +18,6 @@ namespace OWS.ViewModels
         public int IloscKabel4 { get; set; } = 0;
         public int IloscKabel5 { get; set; } = 0;
 
-
-
         /// <summary>
         /// Propercje ilość Kabla Przyłączeniowego
         /// </summary>
@@ -45,25 +27,94 @@ namespace OWS.ViewModels
         public int IloscPrzylacz4 { get; set; } = 0;
         public int IloscPrzylacz5 { get; set; } = 0;
 
-
         /// <summary>
         /// Propercje długość kabla przyłączeniowego
         /// </summary>
-        public float DlugoscPrzylacz1 { get; set; } = 0;
-        public float DlugoscPrzylacz2 { get; set; } = 0;
-        public float DlugoscPrzylacz3 { get; set; } = 0;
-        public float DlugoscPrzylacz4 { get; set; } = 0;
-        public float DlugoscPrzylacz5 { get; set; } = 0;
-        public float DlugoscPrzesla { get; set; } = 0;
+        public int DlugoscPrzylacz1 { get; set; } = 0;
+        public int DlugoscPrzylacz2 { get; set; } = 0;
+        public int DlugoscPrzylacz3 { get; set; } = 0;
+        public int DlugoscPrzylacz4 { get; set; } = 0;
+        public int DlugoscPrzylacz5 { get; set; } = 0;
+        public int DlugoscPrzesla { get; set; } = 0;
+
+
 
         ///<values>full property Pud, zawiera metode NotifyOfPropertyChange() dynamicznie 
         ///aktualizującą pole Pud
-       ///</values>
+        ///</values>
+        private string _nrSlupa = "-";
+        public string NrSlupa
+        {
+            get { return _nrSlupa; }
+            set
+            {
+                _nrSlupa = value;
+                NotifyOfPropertyChange(() => NrSlupa);
+            }
+        }
+
+        public string TypSlupa { get; } = "Słup przelotowy";
+
+
+
+        /// <summary>
+        /// Implementacja interfejsu IDataErrorInfo dzięki któremu zrealizowana została walidacja danych
+        /// wprowadzanych przez użytkownika
+        /// </summary>
+        string IDataErrorInfo.this[string propertyName]
+        {
+            get
+            {
+                string result = null;
+
+                if (propertyName == "IloscKabel1") result = Validation.valKabel(IloscKabel1);
+                if (propertyName == "IloscKabel2") result = Validation.valKabel(IloscKabel2);
+                if (propertyName == "IloscKabel3") result = Validation.valKabel(IloscKabel3);
+                if (propertyName == "IloscKabel4") result = Validation.valKabel(IloscKabel4);
+                if (propertyName == "IloscKabel5") result = Validation.valKabel(IloscKabel5);
+
+                if (propertyName == "DlugoscPrzylacz1") result = Validation.valDlugoscPrzylacz(DlugoscPrzylacz1);
+                if (propertyName == "DlugoscPrzylacz2") result = Validation.valDlugoscPrzylacz(DlugoscPrzylacz2);
+                if (propertyName == "DlugoscPrzylacz3") result = Validation.valDlugoscPrzylacz(DlugoscPrzylacz3);
+                if (propertyName == "DlugoscPrzylacz4") result = Validation.valDlugoscPrzylacz(DlugoscPrzylacz4);
+                if (propertyName == "DlugoscPrzylacz5") result = Validation.valDlugoscPrzylacz(DlugoscPrzylacz5);
+
+                if (propertyName == "IloscPrzylacz1") result = Validation.valPrzylacz(IloscPrzylacz1);
+                if (propertyName == "IloscPrzylacz2") result = Validation.valPrzylacz(IloscPrzylacz2);
+                if (propertyName == "IloscPrzylacz3") result = Validation.valPrzylacz(IloscPrzylacz3);
+                if (propertyName == "IloscPrzylacz4") result = Validation.valPrzylacz(IloscPrzylacz4);
+                if (propertyName == "IloscPrzylacz5") result = Validation.valPrzylacz(IloscPrzylacz5);
+
+                if (propertyName == "DlugoscPrzesla") result = Validation.valDlugoscPrzeslo(DlugoscPrzesla);
+
+                if (propertyName == "NrSlupa") result = Validation.valNrSlupa(NrSlupa);
+
+                return result;
+            }
+        }
+        public string Error
+        {
+            get
+            {
+                { throw new NotImplementedException(); }
+            }
+        }
+
+
+
+
+
+
+        ///<values>full property Pud, zawiera metode NotifyOfPropertyChange() dynamicznie 
+        ///aktualizującą pole Pud
+        ///</values>
         private float _pud;
         public float Pud
         {
             get { return _pud; }
-            set { _pud = value;
+            set
+            {
+                _pud = value;
                 NotifyOfPropertyChange(() => Pud);
             }
         }
@@ -75,7 +126,9 @@ namespace OWS.ViewModels
         public float Pp
         {
             get { return _pp; }
-            set { _pp = value;
+            set
+            {
+                _pp = value;
                 NotifyOfPropertyChange(() => Pp);
             }
         }
@@ -121,30 +174,18 @@ namespace OWS.ViewModels
         ///<values>full property Wynik, zawiera metode NotifyOfPropertyChange() dynamicznie 
         ///aktualizującą pole Wynik
         ///</values>
-        private string _wynik="----";
-        public string  Wynik
+        private string _wynik = "----";
+        public string Wynik
         {
             get { return _wynik; }
-            set { _wynik = value;
+            set
+            {
+                _wynik = value;
                 NotifyOfPropertyChange(() => Wynik);
             }
         }
 
 
-
-
-        ///<values>full property Pud, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole Pud
-        ///</values>
-
-        private string _nrSlupa = "-";
-        public string NrSlupa
-        {
-            get { return _nrSlupa; }
-            set { _nrSlupa = value;
-                NotifyOfPropertyChange(() => NrSlupa);
-            }
-        }
 
 
         // wybór stref klimatycznych
@@ -159,10 +200,24 @@ namespace OWS.ViewModels
         public StrefaKlimatyczna SelectedSWiatrowa
         {
             get { return _selectedSWiatrowa; }
-            set { _selectedSWiatrowa = value;
+            set
+            {
+                _selectedSWiatrowa = value;
                 NotifyOfPropertyChange(() => SelectedSWiatrowa);
             }
         }
+
+        private string _potwierdzenie;
+        public string Potwierdzenie
+        {
+            get { return _potwierdzenie; }
+            set
+            {
+                _potwierdzenie = value;
+                NotifyOfPropertyChange(() => Potwierdzenie);
+            }
+        }
+
 
         ///<values>full property SelectedSSadziowa, zawiera metode NotifyOfPropertyChange() dynamicznie 
         ///aktualizującą pole SelectedSSadziowa
@@ -171,8 +226,10 @@ namespace OWS.ViewModels
         public StrefaKlimatyczna SelectedSSadziowa
         {
             get { return _selectedSSadziowa; }
-            set { _selectedSSadziowa = value;
-            NotifyOfPropertyChange(() => SelectedSSadziowa);
+            set
+            {
+                _selectedSSadziowa = value;
+                NotifyOfPropertyChange(() => SelectedSSadziowa);
             }
         }
 
@@ -183,7 +240,9 @@ namespace OWS.ViewModels
         public BindableCollection<ObcLatarnia> ComboLatarnia
         {
             get { return _comboLatarnia; }
-            set { _comboLatarnia = value;
+            set
+            {
+                _comboLatarnia = value;
                 NotifyOfPropertyChange(() => ComboLatarnia);
             }
         }
@@ -194,7 +253,9 @@ namespace OWS.ViewModels
         public ObcLatarnia SelectedComboLatarnia
         {
             get { return _selectedComboLatarnia; }
-            set { _selectedComboLatarnia = value;
+            set
+            {
+                _selectedComboLatarnia = value;
                 NotifyOfPropertyChange(() => SelectedComboLatarnia);
             }
         }
@@ -202,10 +263,12 @@ namespace OWS.ViewModels
         ///<values>Propercja ComboSlupy, kolekcja typu BindableCollection skłądająca się z obiektów typu Slupy zawiera metode NotifyOfPropertyChange()
         ///</values>
         private BindableCollection<Slupy> _comboSlupy;
-        public  BindableCollection<Slupy> ComboSlupy
+        public BindableCollection<Slupy> ComboSlupy
         {
             get { return _comboSlupy; }
-            set { _comboSlupy = value;
+            set
+            {
+                _comboSlupy = value;
                 NotifyOfPropertyChange(() => ComboSlupy);
             }
         }
@@ -217,12 +280,14 @@ namespace OWS.ViewModels
         public Slupy SelectedSlupy
         {
             get { return _selectedSlupy; }
-            set { _selectedSlupy = value;
+            set
+            {
+                _selectedSlupy = value;
                 NotifyOfPropertyChange(() => SelectedSlupy);
             }
         }
 
-        
+
         ///<values>full property Slupy, zawiera metode NotifyOfPropertyChange() dynamicznie 
         ///aktualizującą pole Slupy
         ///</values>
@@ -230,11 +295,12 @@ namespace OWS.ViewModels
         public ObliczoneSlupy Slup
         {
             get { return _slup; }
-            set { _slup = value;
+            set
+            {
+                _slup = value;
                 NotifyOfPropertyChange(() => Slup);
             }
         }
-
 
         ///<summary>Propercje ComboObcKablaWiatremWpPrzelot1 - ComboObcKablaWiatremWpPrzelot5, kolekcja typu BindableCollection 
         ///skłądająca się z obiektów typu ObcKablaWiatremWpPrzelot zawiera metode NotifyOfPropertyChange()
@@ -243,7 +309,8 @@ namespace OWS.ViewModels
         public BindableCollection<ObcKablaWiatremWpPrzelot> ComboObcKablaWiatremWpPrzelot1
         {
             get { return _comboObcKablaWiatremWpPrzelot1; }
-            set {
+            set
+            {
                 _comboObcKablaWiatremWpPrzelot1 = value;
                 NotifyOfPropertyChange(() => ComboObcKablaWiatremWpPrzelot1);
             }
@@ -297,7 +364,8 @@ namespace OWS.ViewModels
         public ObcKablaWiatremWpPrzelot SelectedComboObcKablaWiatremWpPrzelot1
         {
             get { return _selectedComboObcKablaWiatremWpPrzelot1; }
-            set {
+            set
+            {
                 _selectedComboObcKablaWiatremWpPrzelot1 = value;
                 NotifyOfPropertyChange(() => SelectedComboObcKablaWiatremWpPrzelot1);
             }
@@ -454,10 +522,21 @@ namespace OWS.ViewModels
             }
         }
 
-        public void Zapisz() {
+        /// <summary>
+        /// Metoda powiązana z przyciskiem Zapisz Klasy SlupNaroznyView, wysyła informacje o obliczonym słupie
+        /// do bazy danych, posiada również asynchroniczne opóżnienie odpowiedzialene za zamianę propercji
+        /// Potwierdzenie, informującej o poprawnym zapisie
+        /// </summary>
+        public async void Zapisz()
+        {
             DataAccess da = new DataAccess();
-            da.ZapiszSlupa(NrSlupa, Wynik, Pu, Pud);
+            da.ZapiszSlupa(NrSlupa, Wynik, Pu, Pud, TypSlupa);
+            Potwierdzenie = "Poprawnie zapisano wynik";
+            await Task.Delay(4000);
+            Potwierdzenie = "";
         }
+
+
         /// <summary>
         /// konstruktor klasy SlupPrzelotowyViewModel
         /// </summary>
@@ -465,8 +544,9 @@ namespace OWS.ViewModels
         /// ładuje dane z bazy do kolekcji SKlimat za pomocą funkcji ZalSKlimat()
         ///</values>
         public SlupPrzelotowyViewModel()
-        { StrefaKlimatyczna tmp = new StrefaKlimatyczna();
-          SKlimat = new BindableCollection<StrefaKlimatyczna>(tmp.ZalSKlimat());
+        {
+            StrefaKlimatyczna tmp = new StrefaKlimatyczna();
+            SKlimat = new BindableCollection<StrefaKlimatyczna>(tmp.ZalSKlimat());
         }
 
 
@@ -477,7 +557,7 @@ namespace OWS.ViewModels
         /// </summary>
         public void ZaladujDane()
         {
-            
+
             DataAccess da = new DataAccess();
             ComboObcKablaWiatremWpPrzelot1 = new BindableCollection<ObcKablaWiatremWpPrzelot>(da.ZaladujKabelGlownyPrzelot(SelectedSWiatrowa.StrefaWiatrowa));
             ComboObcKablaWiatremWpPrzelot2 = new BindableCollection<ObcKablaWiatremWpPrzelot>(da.ZaladujKabelGlownyPrzelot(SelectedSWiatrowa.StrefaWiatrowa));
@@ -491,32 +571,32 @@ namespace OWS.ViewModels
             ComboPrzylaczPrzelot5 = new BindableCollection<NaciagPodstawowy>(da.ZaladujNaciagPodstawowy());
             ComboLatarnia = new BindableCollection<ObcLatarnia>(da.ZaladujLatarnia(SelectedSWiatrowa.StrefaWiatrowa));
             ComboSlupy = new BindableCollection<Slupy>(da.ZaladujSlupy());
+
         }
-        
+
 
         // przycik oblicz
         /// <summary>
         /// Oblicza PP, Po, Pr, Pu oraz Wynik na podstawie danych wybranych przez użytkownika 
         /// </summary>
-        public void ObliczPrzelotowy ()
+        public void ObliczPrzelotowy()
         {
-            if (SelectedSWiatrowa.StrefaWiatrowa=="W1") Pud = SelectedSlupy.WytrzymaloscW1;
+            if (SelectedSWiatrowa.StrefaWiatrowa == "W1") Pud = SelectedSlupy.WytrzymaloscW1;
             else Pud = SelectedSlupy.WytrzymaloscW2;
-            Pp = DlugoscPrzesla * ( IloscKabel1*SelectedComboObcKablaWiatremWpPrzelot1.ObciazenieWp + IloscKabel2*SelectedComboObcKablaWiatremWpPrzelot2.ObciazenieWp + IloscKabel3*SelectedComboObcKablaWiatremWpPrzelot3.ObciazenieWp + 
-                IloscKabel4*SelectedComboObcKablaWiatremWpPrzelot4.ObciazenieWp + IloscKabel5*SelectedComboObcKablaWiatremWpPrzelot5.ObciazenieWp);
+            Pp = DlugoscPrzesla * (IloscKabel1 * SelectedComboObcKablaWiatremWpPrzelot1.ObciazenieWp + IloscKabel2 * SelectedComboObcKablaWiatremWpPrzelot2.ObciazenieWp + IloscKabel3 * SelectedComboObcKablaWiatremWpPrzelot3.ObciazenieWp +
+                IloscKabel4 * SelectedComboObcKablaWiatremWpPrzelot4.ObciazenieWp + IloscKabel5 * SelectedComboObcKablaWiatremWpPrzelot5.ObciazenieWp);
             Po = SelectedComboLatarnia.ObciazeniePo;
-            
-            Pr = 0.2F*(IloscPrzylacz1*NaciagPodstawowy.Naciag(DlugoscPrzylacz1, SelectedComboPrzylaczPrzelot1) + IloscPrzylacz2 * NaciagPodstawowy.Naciag(DlugoscPrzylacz2, SelectedComboPrzylaczPrzelot2) 
+
+            Pr = 0.2F * (IloscPrzylacz1 * NaciagPodstawowy.Naciag(DlugoscPrzylacz1, SelectedComboPrzylaczPrzelot1) + IloscPrzylacz2 * NaciagPodstawowy.Naciag(DlugoscPrzylacz2, SelectedComboPrzylaczPrzelot2)
                 + IloscPrzylacz3 * NaciagPodstawowy.Naciag(DlugoscPrzylacz3, SelectedComboPrzylaczPrzelot3) + IloscPrzylacz4 * NaciagPodstawowy.Naciag(DlugoscPrzylacz4, SelectedComboPrzylaczPrzelot4)
                 + IloscPrzylacz5 * NaciagPodstawowy.Naciag(DlugoscPrzylacz5, SelectedComboPrzylaczPrzelot5));
-            
+
             Pu = Pp + Po + Pr;
             if (Pud >= Pu) Wynik = "Słup spełnia warunek";
             else if (Pud < Pu) Wynik = "Słup nie spełnia warunku";
-            
+
 
         }
-
 
     }
 }

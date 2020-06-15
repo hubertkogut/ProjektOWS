@@ -86,6 +86,7 @@
     <Compile Include="Models\ObliczoneSlupy.cs" />
     <Compile Include="Models\Slupy.cs" />
     <Compile Include="Models\StrefaKlimatyczna.cs" />
+    <Compile Include="Models\Validation.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\SlupNaroznyViewModel.cs" />
     <Compile Include="ViewModels\TabelaObliczoneSlupyViewModel.cs" />

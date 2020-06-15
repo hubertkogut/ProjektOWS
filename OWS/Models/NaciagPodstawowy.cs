@@ -8,7 +8,6 @@ namespace OWS.Models
 {
     /// <summary>
     /// Klasa NaciagPodstawowy to model tabeli NaciagPodstawowy z bazy danych
-    /// posiada propercje i metode
     /// </summary>
     public class NaciagPodstawowy
     {
@@ -26,7 +25,7 @@ namespace OWS.Models
         public float Naciag100 { get; set; }
         ///<value>propercja NaciagPods - naciąg brany do obliczeń, po uwzględnieniu długości kabla</value> 
         public float NaciagPods { get; set; }
-        
+
         /// <summary>
         /// metoda sprawdza dlugość przyłącza i wybiera odpowiedzni naciąg do obliczeń
         /// </summary>

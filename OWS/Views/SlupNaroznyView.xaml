@@ -4,8 +4,134 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:OWS.Views"
+             xmlns:viewModels="clr-namespace:OWS.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="500" FontSize="10">
+              d:DesignHeight="450" d:DesignWidth="500" FontSize="10">
+
+    <!--#region sekcja walidacja-->
+    <UserControl.Resources>
+        <viewModels:SlupNaroznyViewModel x:Key="error"/>
+        <Style x:Key="textBoxInError" TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="buttonObliczEnable" TargetType="ToggleButton">
+            <Setter Property="IsEnabled" Value="True"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=ZaladujDane}" Value="False" >
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=IloscKabel1}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=IloscKabel2}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=IloscKabel3}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=IloscKabel4}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=IloscKabel5}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=DlugoscPrzylacz1}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=DlugoscPrzylacz2}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=DlugoscPrzylacz3}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=DlugoscPrzylacz4}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=DlugoscPrzylacz5}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=IloscPrzylacz1}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=IloscPrzylacz2}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=IloscPrzylacz3}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=IloscPrzylacz4}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=IloscPrzylacz5}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=DlugoscPrzesla}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=NrSlupa}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=KatAlfa}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="buttonZaladujDaneEnable" TargetType="ToggleButton">
+            <Setter Property="IsEnabled" Value="False"/>
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding SelectedSWiatrowa.StrefaWiatrowa}" Value="W1" />
+                        <Condition Binding="{Binding SelectedSSadziowa.StrefaSadziowa}" Value="S1" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding SelectedSWiatrowa.StrefaWiatrowa}" Value="W1" />
+                        <Condition Binding="{Binding SelectedSSadziowa.StrefaSadziowa}" Value="S2" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding SelectedSWiatrowa.StrefaWiatrowa}" Value="W2" />
+                        <Condition Binding="{Binding SelectedSSadziowa.StrefaSadziowa}" Value="S1" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiDataTrigger>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding SelectedSWiatrowa.StrefaWiatrowa}" Value="W2" />
+                        <Condition Binding="{Binding SelectedSSadziowa.StrefaSadziowa}" Value="S2" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="IsEnabled" Value="True"/>
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="buttonZapiszEnable" TargetType="Button">
+            <Setter Property="IsEnabled" Value="True"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=IsChecked, ElementName=ObliczNarozny}" Value="False" >
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </UserControl.Resources>
+    <!--#endregion -->
+
+
+
+    <!--#region sekcja grid-->
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="20"/>
@@ -48,19 +174,18 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-
-        <!--rysunek slupa-->
-
-        <Image Grid.Row="5" Grid.Column="3" Grid.RowSpan="6" Grid.ColumnSpan="4"
-               Source="C:\Users\Hubert\source\repos\OWS\OWS\images\SlupNarozny.PNG"   />
+        <!--#endregion -->
 
 
+
+        <!--#region sekcja ładowanie danych-->
         <!--Strefy klimatyczne, ładowanie danych -->
         <Label Grid.Column="1" Grid.ColumnSpan="4"  Grid.Row="1" HorizontalContentAlignment="Center" >Wybierz strefy klimatyczne</Label>
         <Label Grid.Column="1" Grid.Row="2">Wiatrowa:</Label>
         <Label Grid.Column="3" Grid.Row="2" >Sadziowa:</Label>
-        <Button x:Name="ZaladujDane" Grid.Row="2" Grid.Column="10" >Załaduj dane</Button>
-        <ComboBox  Grid.Column="2" Grid.Row="2" Width="60" Height="20" ItemsSource="{Binding SKlimat}" 
+        <ToggleButton x:Name="ZaladujDane" Grid.Row="2" Grid.Column="10" 
+                      Style="{StaticResource buttonZaladujDaneEnable}">Załaduj dane</ToggleButton>
+        <ComboBox  Grid.Column="2" Grid.Row="2" Width="60" Height="20" ItemsSource="{Binding SKlimat}"  
                    SelectedItem="{Binding SelectedSWiatrowa}" >
             <ComboBox.ItemTemplate>
                 <DataTemplate>
@@ -76,21 +201,35 @@
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+        <!--#endregion -->
 
 
+
+
+        <!--#region sekcja wprowadzenie danych-->
+        <!--rysunek slupa-->
+        <Image Grid.Row="5" Grid.Column="3" Grid.RowSpan="6" Grid.ColumnSpan="4"
+               Source="C:\Users\huber\source\repos\ProjektOWS\projekt\OWS\images\SlupNarozny1.PNG"   />
+        <Label Content="Słup narożny" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+               Grid.Row="3" Grid.ColumnSpan="4" FontSize="13">
+        </Label>
+
+        <Label Content="Kable główne" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+               Grid.Row="3" Grid.ColumnSpan="2" ></Label>
+        <Label Content="Kable przyłączeniowe" Grid.Column="7" HorizontalAlignment="Center" VerticalAlignment="Bottom"
+               Grid.Row="3" Grid.ColumnSpan="3" ></Label>
         <!--ilosc kabla glównego-->
         <Label Content="Ilość:" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="5" />
         <TextBox x:Name="IloscKabel1" Grid.Column="1" Grid.Row="6"
-            Width="30" Height="20">
-        </TextBox>
-        <TextBox x:Name="IloscKabel2" Grid.Column="1" Grid.Row="7" Width="30" Height="20" />
+            Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
+        <TextBox x:Name="IloscKabel2" Grid.Column="1" Grid.Row="7" 
+                 Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
         <TextBox x:Name="IloscKabel3" Grid.Column="1" Grid.Row="8"
-            Width="30" Height="20" />
+            Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
         <TextBox x:Name="IloscKabel4" Grid.Column="1" Grid.Row="9"
-            Width="30" Height="20" />
+            Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
         <TextBox x:Name="IloscKabel5" Grid.Column="1" Grid.Row="10"
-            Width="30" Height="20" />
-
+            Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
 
         <!--combo kabel główny-->
         <Label Content="Typ kabla:" Grid.Column="2" HorizontalAlignment="Center" Grid.Row="5" />
@@ -140,32 +279,31 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-
         <!--ilosc kabel przyłączeniowy-->
         <Label Content="Ilość p.:" Grid.Column="7" HorizontalAlignment="Center" Grid.Row="5" />
         <TextBox x:Name="IloscPrzylacz1" Grid.Column="7" Grid.Row="6"
-            Width="30" Height="20" />
+            Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
         <TextBox x:Name="IloscPrzylacz2" Grid.Column="7" Grid.Row="7"
-            Width="30" Height="20" />
+            Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
         <TextBox x:Name="IloscPrzylacz3" Grid.Column="7" Grid.Row="8"
-            Width="30" Height="20" />
+            Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
         <TextBox x:Name="IloscPrzylacz4" Grid.Column="7" Grid.Row="9"
-            Width="30" Height="20" />
+            Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
         <TextBox x:Name="IloscPrzylacz5" Grid.Column="7" Grid.Row="10"
-            Width="30" Height="20" />
+            Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
 
         <!--dlugość kabel przylączeniowy-->
         <Label Content="Długość:" Grid.Column="8" HorizontalAlignment="Center" Grid.Row="5" />
-        <TextBox Text="{Binding DlugoscPrzylacz1, StringFormat=N2}" Grid.Column="8" Grid.Row="6"
-            Width="30" Height="20" />
-        <TextBox Text="{Binding DlugoscPrzylacz2, StringFormat=N2}" Grid.Column="8" Grid.Row="7"
-            Width="30" Height="20" />
-        <TextBox Text="{Binding DlugoscPrzylacz3, StringFormat=N2}" Grid.Column="8" Grid.Row="8"
-            Width="30" Height="20" />
-        <TextBox Text="{Binding DlugoscPrzylacz4, StringFormat=N2}" Grid.Column="8" Grid.Row="9"
-            Width="30" Height="20" />
-        <TextBox Text="{Binding DlugoscPrzylacz5, StringFormat=N2}" Grid.Column="8" Grid.Row="10"
-            Width="30" Height="20" />
+        <TextBox x:Name="DlugoscPrzylacz1" Grid.Column="8" Grid.Row="6"
+            Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
+        <TextBox x:Name="DlugoscPrzylacz2" Grid.Column="8" Grid.Row="7"
+                 Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
+        <TextBox x:Name="DlugoscPrzylacz3" Grid.Column="8" Grid.Row="8"
+                 Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
+        <TextBox x:Name="DlugoscPrzylacz4" Grid.Column="8" Grid.Row="9"
+                 Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
+        <TextBox x:Name="DlugoscPrzylacz5" Grid.Column="8" Grid.Row="10"
+                 Width="30" Height="20" Style="{StaticResource textBoxInError}"/>
 
         <!--combo kabel Przyłączeniowy-->
         <Label Content="Przyłącze:" Grid.Column="9" HorizontalAlignment="Center" Grid.Row="5" />
@@ -215,7 +353,6 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-
         <Label Grid.Row="12"></Label>
         <!--Latarnia-->
         <Label Content="Latarnia:" Grid.Column="6" Grid.Row="13" HorizontalAlignment="Right" 
@@ -247,25 +384,33 @@
             <TextBlock>Długość <LineBreak/>przęsła</TextBlock>
         </Label>
         <TextBox Grid.Column="1" Grid.Row="14" HorizontalAlignment="Center" MaxWidth="50"
-            Width="30" Height="20" Text="{Binding DlugoscPrzesla, StringFormat=N2}"/>
+            Width="30" Height="20" x:Name="DlugoscPrzesla"
+            Style="{StaticResource textBoxInError}"/>
 
         <!--kąt alfa-->
         <Label Grid.Column="2" Grid.Row="13" HorizontalAlignment="Center" VerticalAlignment="Bottom">
             <TextBlock>Kąt <LineBreak/>alfa</TextBlock>
         </Label>
         <TextBox Grid.Column="2" Grid.Row="14" HorizontalAlignment="Center" MaxWidth="50"
-                 Width="30" Height="20" Text="{Binding KatAlfa, StringFormat=N2}"/>
+                 Width="30" Height="20" x:Name="KatAlfa"
+                 Style="{StaticResource textBoxInError}"/>
 
         <!--nr słupa-->
         <Label Content="Nr. słupa:" Grid.Column="8" Grid.Row="13" VerticalAlignment="Bottom"  />
         <TextBox x:Name="NrSlupa" Grid.Column="8" Grid.Row="14"
-                  MaxWidth="50" Height="20"/>
+                  MaxWidth="50" Height="20" Style="{StaticResource textBoxInError}"/>
 
         <!--oblicz-->
-        <Button x:Name="ObliczNarozny" Grid.Row="14" Grid.Column="10" >oblicz</Button>
+        <ToggleButton x:Name="ObliczNarozny" Grid.Row="14" Grid.Column="10"
+                      Style="{StaticResource buttonObliczEnable}" >oblicz</ToggleButton>
+
+        <!--#endregion -->
 
 
-        <!--sekcja z wynikiem-->
+
+
+        <!--#region sekcja wynik i zapis-->
+
         <Label Grid.Column="1" Grid.Row="16" Grid.ColumnSpan="2">Warunek: Pud>=Pu</Label>
         <Label Grid.Column="1" Grid.Row="17" Grid.ColumnSpan="2">Pu=2Pp*cos(α/2)+Po+Pr</Label>
         <Label Grid.Column="1" Grid.Row="18" Grid.ColumnSpan="2">Pp-obc. kabla głównego</Label>
@@ -283,8 +428,18 @@
                 Height="55" Grid.Row="1" Grid.RowSpan="3" VerticalAlignment="Top" Width="495"/>
         <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="14" Grid.Column="1" HorizontalAlignment="Left" Margin="0,7,0,23.4" Grid.Row="3" Grid.RowSpan="14" Width="495"/>
         <Border BorderBrush="Black" BorderThickness="1" Grid.ColumnSpan="14" HorizontalAlignment="Left" Height="142" Margin="0,9.2,0,0" Grid.Row="15" Grid.RowSpan="7" VerticalAlignment="Top" Width="495" Grid.Column="1"/>
-        <Button x:Name="Zapisz" Grid.Row="19" Grid.Column="10">Zapisz</Button>
 
+        <Button x:Name="Zapisz" Style="{StaticResource buttonZapiszEnable}" Grid.Row="19" Grid.Column="10" >Zapisz</Button>
 
+        <TextBlock x:Name="Potwierdzenie" Grid.Column="8" Grid.ColumnSpan="3" Grid.Row="20" HorizontalAlignment="Right" VerticalAlignment="Center">
+            <TextBlock.Style>
+                <Style>
+                    <Setter Property="TextBlock.FontSize" Value="12" />
+                    <Setter Property="TextBlock.Foreground" Value="DarkGreen" />
+                    <Setter Property="TextBlock.Background" Value="LightGreen" />
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <!--#endregion -->
     </Grid>
 </UserControl>

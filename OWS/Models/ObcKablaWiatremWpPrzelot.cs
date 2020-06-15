@@ -8,7 +8,6 @@ namespace OWS.Models
 {
     /// <summary>
     /// Klasa ObcKablaWiatremWpPrzelot to model tabeli ObcKablaWiatremWpPrzelot z bazy danych
-    /// posiada propercje
     /// </summary>
     public class ObcKablaWiatremWpPrzelot
     {
