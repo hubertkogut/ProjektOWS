@@ -4,13 +4,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OWS.Models
+namespace OWS.Services
 {
     /// <summary>
     /// Klasa Validation posiada metody wykorzystywane do walidacji w klasach SlupNaroznyViewModel oraz
     /// SplupPrzelotowyViewModel
     /// </summary>
-    public class Validation
+    public class Validation : IValidation
     {
         /// <summary>
         /// metoda sprawdza podaną przez użytkownika ilość kabli
@@ -18,7 +18,7 @@ namespace OWS.Models
         /// <param name="iloscKabel"></param>
         /// <returns> zwraca string z informacją o błędzie jeśli spełniony został warunek błędnych danych
         /// lub null</returns>
-        public static string valKabel(int iloscKabel)
+        public string valKabel(int iloscKabel)
         {
             if (iloscKabel < 0 || iloscKabel > 10)
             {
@@ -33,7 +33,7 @@ namespace OWS.Models
         /// <param name="iloscPrzylacz"></param>
         /// <returns> zwraca string z informacją o błędzie jeśli spełniony został warunek błędnych danych
         /// lub null</returns>
-        public static string valPrzylacz(int iloscPrzylacz)
+        public string valPrzylacz(int iloscPrzylacz)
         {
             if (iloscPrzylacz < 0 || iloscPrzylacz > 10)
             {
@@ -48,7 +48,7 @@ namespace OWS.Models
         /// <param name="dlugosc"></param>
         /// <returns> zwraca string z informacją o błędzie jeśli spełniony został warunek błędnych danych
         /// lub null</returns>
-        public static string valDlugoscPrzylacz(int dlugosc)
+        public string valDlugoscPrzylacz(int dlugosc)
         {
             if (dlugosc < 0 || dlugosc > 50)
             {
@@ -63,7 +63,7 @@ namespace OWS.Models
         /// <param name="dlugosc"></param>
         /// <returns> zwraca string z informacją o błędzie jeśli spełniony został warunek błędnych danych
         /// lub null</returns>
-        public static string valDlugoscPrzeslo(int dlugosc)
+        public string valDlugoscPrzeslo(int dlugosc)
         {
             if (dlugosc < 0 || dlugosc > 100)
             {
@@ -78,7 +78,7 @@ namespace OWS.Models
         /// <param name="nr"></param>
         /// <returns> zwraca string z informacją o błędzie jeśli spełniony został warunek błędnych danych
         /// lub null</returns>
-        public static string valNrSlupa(string nr)
+        public string valNrSlupa(string nr)
         {
             if (nr.Length > 40)
             {
@@ -97,13 +97,27 @@ namespace OWS.Models
         /// <param name="kat"></param>
         /// <returns> zwraca string z informacją o błędzie jeśli spełniony został warunek błędnych danych
         /// lub null</returns>
-        public static string valKatAlfa(int kat)
+        public string valKatAlfa(int kat)
         {
             if (kat < 0 || kat > 170)
             {
                 return "Kąt poninien zawierać się w przedziale od 0 do 170";
             }
 
+            return null;
+        }
+
+        public string valNrProj(string nr)
+        {
+
+            if (nr.Length > 40)
+            {
+                return "Numer projektu nie może przekraczać 40 znaków";
+            }
+            if (nr.Length < 1)
+            {
+                return "Wprowadź numer słupa";
+            }
             return null;
         }
     }

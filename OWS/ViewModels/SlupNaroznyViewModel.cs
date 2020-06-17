@@ -1,13 +1,35 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading.Tasks;
 using Caliburn.Micro;
 using OWS.Models;
+using OWS.Services;
 
 namespace OWS.ViewModels
 {
     public class SlupNaroznyViewModel : Screen, IDataErrorInfo
     {
+
+        private IValidation _valid;
+        private IDataAccess _data;
+
+        /// <summary>
+        /// konstruktor klasy SlupNaroznyViewModel
+        /// </summary>
+        ///<values>
+        /// ładuje dane z bazy do kolekcji SKlimat za pomocą funkcji ZalSKlimat()
+        ///</values>
+        public SlupNaroznyViewModel(IValidation valid, IDataAccess data)
+        {
+            _valid = valid;
+            _data = data;
+
+            StrefaKlimatyczna tmp = new StrefaKlimatyczna();
+            SKlimat = new BindableCollection<StrefaKlimatyczna>(tmp.ZalSKlimat());
+        }
+
+
         //ilosc kabli
         /// <summary>
         /// Propercje Ilosc Kabla Głównego
@@ -67,29 +89,31 @@ namespace OWS.ViewModels
             {
                 string result = null;
 
-                if (propertyName == "IloscKabel1") result = Validation.valKabel(IloscKabel1);
-                if (propertyName == "IloscKabel2") result = Validation.valKabel(IloscKabel2);
-                if (propertyName == "IloscKabel3") result = Validation.valKabel(IloscKabel3);
-                if (propertyName == "IloscKabel4") result = Validation.valKabel(IloscKabel4);
-                if (propertyName == "IloscKabel5") result = Validation.valKabel(IloscKabel5);
+                if (propertyName == "IloscKabel1") result = _valid.valKabel(IloscKabel1);
+                if (propertyName == "IloscKabel2") result = _valid.valKabel(IloscKabel2);
+                if (propertyName == "IloscKabel3") result = _valid.valKabel(IloscKabel3);
+                if (propertyName == "IloscKabel4") result = _valid.valKabel(IloscKabel4);
+                if (propertyName == "IloscKabel5") result = _valid.valKabel(IloscKabel5);
 
-                if (propertyName == "DlugoscPrzylacz1") result = Validation.valDlugoscPrzylacz(DlugoscPrzylacz1);
-                if (propertyName == "DlugoscPrzylacz2") result = Validation.valDlugoscPrzylacz(DlugoscPrzylacz2);
-                if (propertyName == "DlugoscPrzylacz3") result = Validation.valDlugoscPrzylacz(DlugoscPrzylacz3);
-                if (propertyName == "DlugoscPrzylacz4") result = Validation.valDlugoscPrzylacz(DlugoscPrzylacz4);
-                if (propertyName == "DlugoscPrzylacz5") result = Validation.valDlugoscPrzylacz(DlugoscPrzylacz5);
+                if (propertyName == "DlugoscPrzylacz1") result = _valid.valDlugoscPrzylacz(DlugoscPrzylacz1);
+                if (propertyName == "DlugoscPrzylacz2") result = _valid.valDlugoscPrzylacz(DlugoscPrzylacz2);
+                if (propertyName == "DlugoscPrzylacz3") result = _valid.valDlugoscPrzylacz(DlugoscPrzylacz3);
+                if (propertyName == "DlugoscPrzylacz4") result = _valid.valDlugoscPrzylacz(DlugoscPrzylacz4);
+                if (propertyName == "DlugoscPrzylacz5") result = _valid.valDlugoscPrzylacz(DlugoscPrzylacz5);
 
-                if (propertyName == "IloscPrzylacz1") result = Validation.valPrzylacz(IloscPrzylacz1);
-                if (propertyName == "IloscPrzylacz2") result = Validation.valPrzylacz(IloscPrzylacz2);
-                if (propertyName == "IloscPrzylacz3") result = Validation.valPrzylacz(IloscPrzylacz3);
-                if (propertyName == "IloscPrzylacz4") result = Validation.valPrzylacz(IloscPrzylacz4);
-                if (propertyName == "IloscPrzylacz5") result = Validation.valPrzylacz(IloscPrzylacz5);
+                if (propertyName == "IloscPrzylacz1") result = _valid.valPrzylacz(IloscPrzylacz1);
+                if (propertyName == "IloscPrzylacz2") result = _valid.valPrzylacz(IloscPrzylacz2);
+                if (propertyName == "IloscPrzylacz3") result = _valid.valPrzylacz(IloscPrzylacz3);
+                if (propertyName == "IloscPrzylacz4") result = _valid.valPrzylacz(IloscPrzylacz4);
+                if (propertyName == "IloscPrzylacz5") result = _valid.valPrzylacz(IloscPrzylacz5);
 
-                if (propertyName == "DlugoscPrzesla") result = Validation.valDlugoscPrzeslo(DlugoscPrzesla);
+                if (propertyName == "DlugoscPrzesla") result = _valid.valDlugoscPrzeslo(DlugoscPrzesla);
 
-                if (propertyName == "NrSlupa") result = Validation.valNrSlupa(NrSlupa);
+                if (propertyName == "NrSlupa") result = _valid.valNrSlupa(NrSlupa);
 
-                if (propertyName == "KatAlfa") result = Validation.valKatAlfa(KatAlfa);
+                if (propertyName == "NrProjektu") result = _valid.valNrProj(NrProjektu);
+
+                if (propertyName == "KatAlfa") result = _valid.valKatAlfa(KatAlfa);
 
                 return result;
             }
@@ -204,6 +228,17 @@ namespace OWS.ViewModels
             {
                 _nrSlupa = value;
                 NotifyOfPropertyChange(() => NrSlupa);
+            }
+        }
+
+        private string _nrProjektu = "-";
+        public string NrProjektu
+        {
+            get { return _nrProjektu; }
+            set
+            {
+                _nrProjektu = value;
+                NotifyOfPropertyChange(() => NrProjektu);
             }
         }
 
@@ -550,49 +585,38 @@ namespace OWS.ViewModels
         /// </summary>
         public async void Zapisz()
         {
-            DataAccess da = new DataAccess();
-            da.ZapiszSlupa(NrSlupa, Wynik, Pu, Pud, TypSlupa);
+            _data.ZapiszSlupa(NrSlupa, Wynik, Pu, Pud, TypSlupa, NrProjektu);
             Potwierdzenie = "Poprawnie zapisano wynik";
             await Task.Delay(4000);
             Potwierdzenie = "";
         }
 
-        public string TypSlupa { get; } = "Słup narożny";
-
-        /// <summary>
-        /// konstruktor klasy SlupNaroznyViewModel
-        /// </summary>
-        ///<values>
-        /// ładuje dane z bazy do kolekcji SKlimat za pomocą funkcji ZalSKlimat()
-        ///</values>
-        public SlupNaroznyViewModel()
-        {
-            StrefaKlimatyczna tmp = new StrefaKlimatyczna();
-            SKlimat = new BindableCollection<StrefaKlimatyczna>(tmp.ZalSKlimat());
-        }
-
+        public string TypSlupa { get; } = "S. narożny";
+        
 
         //przycisk załaduj dane
         /// <summary>
         /// metoda ZaladujDane- powiązana z przyciskiem w pliku SlupNarożnyView, za pomocą metod z klasy DataAcces
         /// metoda ZaladujSlupy ładuje dane do kolekcji zdefiniowanych w klasie SlupNarożnyViewModel
         /// </summary>
-        public void ZaladujDane()
+        public async Task ZaladujDane()
         {
+           
+            var listO = await _data.ZaladujKabelGlownyPrzelotAsync(SelectedSWiatrowa.StrefaWiatrowa);
+            var listP = await _data.ZaladujNaciagPodstawowyAsync();
 
-            DataAccess da = new DataAccess();
-            ComboObcKablaWiatremWpPrzelot1 = new BindableCollection<ObcKablaWiatremWpPrzelot>(da.ZaladujKabelGlownyPrzelot(SelectedSWiatrowa.StrefaWiatrowa));
-            ComboObcKablaWiatremWpPrzelot2 = new BindableCollection<ObcKablaWiatremWpPrzelot>(da.ZaladujKabelGlownyPrzelot(SelectedSWiatrowa.StrefaWiatrowa));
-            ComboObcKablaWiatremWpPrzelot3 = new BindableCollection<ObcKablaWiatremWpPrzelot>(da.ZaladujKabelGlownyPrzelot(SelectedSWiatrowa.StrefaWiatrowa));
-            ComboObcKablaWiatremWpPrzelot4 = new BindableCollection<ObcKablaWiatremWpPrzelot>(da.ZaladujKabelGlownyPrzelot(SelectedSWiatrowa.StrefaWiatrowa));
-            ComboObcKablaWiatremWpPrzelot5 = new BindableCollection<ObcKablaWiatremWpPrzelot>(da.ZaladujKabelGlownyPrzelot(SelectedSWiatrowa.StrefaWiatrowa));
-            ComboPrzylaczPrzelot1 = new BindableCollection<NaciagPodstawowy>(da.ZaladujNaciagPodstawowy());
-            ComboPrzylaczPrzelot2 = new BindableCollection<NaciagPodstawowy>(da.ZaladujNaciagPodstawowy());
-            ComboPrzylaczPrzelot3 = new BindableCollection<NaciagPodstawowy>(da.ZaladujNaciagPodstawowy());
-            ComboPrzylaczPrzelot4 = new BindableCollection<NaciagPodstawowy>(da.ZaladujNaciagPodstawowy());
-            ComboPrzylaczPrzelot5 = new BindableCollection<NaciagPodstawowy>(da.ZaladujNaciagPodstawowy());
-            ComboLatarnia = new BindableCollection<ObcLatarnia>(da.ZaladujLatarnia(SelectedSWiatrowa.StrefaWiatrowa));
-            ComboSlupy = new BindableCollection<Slupy>(da.ZaladujSlupyNarozne());
+            ComboObcKablaWiatremWpPrzelot1 = new BindableCollection<ObcKablaWiatremWpPrzelot>(listO);
+            ComboObcKablaWiatremWpPrzelot2 = new BindableCollection<ObcKablaWiatremWpPrzelot>(listO);
+            ComboObcKablaWiatremWpPrzelot3 = new BindableCollection<ObcKablaWiatremWpPrzelot>(listO);
+            ComboObcKablaWiatremWpPrzelot4 = new BindableCollection<ObcKablaWiatremWpPrzelot>(listO);
+            ComboObcKablaWiatremWpPrzelot5 = new BindableCollection<ObcKablaWiatremWpPrzelot>(listO);
+            ComboPrzylaczPrzelot1 = new BindableCollection<NaciagPodstawowy>(listP);
+            ComboPrzylaczPrzelot2 = new BindableCollection<NaciagPodstawowy>(listP);
+            ComboPrzylaczPrzelot3 = new BindableCollection<NaciagPodstawowy>(listP);
+            ComboPrzylaczPrzelot4 = new BindableCollection<NaciagPodstawowy>(listP);
+            ComboPrzylaczPrzelot5 = new BindableCollection<NaciagPodstawowy>(listP);
+            ComboLatarnia = new BindableCollection<ObcLatarnia>(await _data.ZaladujLatarniaAsync(SelectedSWiatrowa.StrefaWiatrowa));
+            ComboSlupy = new BindableCollection<Slupy>( await _data.ZaladujSlupyNarozneAsync());
         }
 
 

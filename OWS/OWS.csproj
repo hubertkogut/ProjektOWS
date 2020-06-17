@@ -78,15 +78,17 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Models\DataAccess.cs" />
-    <Compile Include="Models\Helper.cs" />
     <Compile Include="Models\NaciagPodstawowy.cs" />
     <Compile Include="Models\ObcKablaWiatremWpPrzelot.cs" />
     <Compile Include="Models\ObcLatarnia.cs" />
     <Compile Include="Models\ObliczoneSlupy.cs" />
     <Compile Include="Models\Slupy.cs" />
     <Compile Include="Models\StrefaKlimatyczna.cs" />
-    <Compile Include="Models\Validation.cs" />
+    <Compile Include="Services\DataAccess.cs" />
+    <Compile Include="Services\Helper.cs" />
+    <Compile Include="Services\IDataAccess.cs" />
+    <Compile Include="Services\IValidation.cs" />
+    <Compile Include="Services\Validation.cs" />
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="ViewModels\SlupNaroznyViewModel.cs" />
     <Compile Include="ViewModels\TabelaObliczoneSlupyViewModel.cs" />
@@ -142,7 +144,6 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Page Include="Views\ShellView.xaml">
       <SubType>Designer</SubType>
@@ -168,6 +169,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\slupPrzelotowy.PNG" />
+    <Resource Include="Resource\strefySadziowe.PNG" />
+    <Resource Include="Resource\strefyWiatrowe.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resource\slupNarozny1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

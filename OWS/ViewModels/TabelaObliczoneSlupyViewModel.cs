@@ -1,5 +1,9 @@
-﻿using Caliburn.Micro;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading.Tasks;
+using Caliburn.Micro;
 using OWS.Models;
+using OWS.Services;
 
 namespace OWS.ViewModels
 {
@@ -8,6 +12,9 @@ namespace OWS.ViewModels
     /// </summary>
     public class TabelaObliczoneSlupyViewModel : Screen
     {
+
+        private IDataAccess _data;
+
         ///<values>Propercja Tabela, kolekcja typu BindableCollection skłądająca się z obiektów typu ObliczoneSlupy zawiera metode NotifyOfPropertyChange()
         ///</values>
         private BindableCollection<ObliczoneSlupy> _tabela;
@@ -21,14 +28,31 @@ namespace OWS.ViewModels
             }
         }
 
-        /// <summary>
-        /// Konstruktor klasy TabelaObliczoneSlupyViewModel wczytujący obliczone słupy z bazy danych
-        /// </summary>
-        public TabelaObliczoneSlupyViewModel()
-        {
-            DataAccess da = new DataAccess();
-            Tabela = new BindableCollection<ObliczoneSlupy>(da.ZaladujTabele());
+        private string _nrProjektu;
 
+        public string NrProjektu
+        {
+            get { return _nrProjektu; }
+            set
+            {
+                _nrProjektu = value;
+                NotifyOfPropertyChange(() => Tabela);
+            }
         }
+
+
+
+
+
+        public TabelaObliczoneSlupyViewModel(IDataAccess data)
+        { 
+            _data = data;
+        }
+        
+        public async Task ZaladujTabele()
+        {
+            Tabela = new BindableCollection<ObliczoneSlupy>(await _data.ZaladujTabeleAsync(NrProjektu));
+        }
+
     }
 }

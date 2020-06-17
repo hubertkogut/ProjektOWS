@@ -22,6 +22,11 @@ namespace OWS.Models
         public float Pu { get; set; }
         ///<value>propercja Pud</value> 
         public float Pud { get; set; }
-        
+        ///<value>propercja TypSłupa</value> 
+        public string TypSlupa { get; set; }
+
+        ///<value>propercja NrProjektu</value> 
+        public string NrProjektu { get; set; }
+
     }
 }

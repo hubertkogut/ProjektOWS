@@ -6,18 +6,41 @@
              xmlns:local="clr-namespace:OWS.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="10"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
 
-        <DataGrid x:Name="Tabela" >
 
+        <Label Grid.Column="0" Grid.Row="2">Podaj nazwę projektu</Label>
+        <TextBox x:Name="NrProjektu" Grid.Row="2" Height="20" Margin="130,2.4,0,3.2" MaxWidth="140"
+                 Grid.ColumnSpan="4" ToolTip="Wprowadź nr projektu lub zostaw to pole puste aby zobaczyć wszystkie słupy"/>
+        <Button x:Name="ZaladujTabele" Grid.Row="2" Grid.Column="7" Height="20"
+        >Załaduj dane</Button>
+
+
+        <DataGrid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="8" x:Name="Tabela" Width="540" 
+                  HorizontalScrollBarVisibility="Visible"
+                  VerticalScrollBarVisibility="Visible"
+                  CanUserAddRows="True"
+                  MaxColumnWidth="115">
         </DataGrid>
     </Grid>
 </UserControl>

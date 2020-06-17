@@ -10,7 +10,6 @@
 
     <!--#region sekcja walidacja-->
     <UserControl.Resources>
-        <viewModels:SlupPrzelotowyViewModel x:Key="error"/>
         <Style x:Key="textBoxInError" TargetType="TextBox">
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
@@ -75,6 +74,9 @@
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
                 <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=NrSlupa}" Value="True">
+                    <Setter Property="IsEnabled" Value="False"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=(Validation.HasError), ElementName=NrProjektu}" Value="True">
                     <Setter Property="IsEnabled" Value="False"/>
                 </DataTrigger>
             </Style.Triggers>
@@ -203,7 +205,7 @@
         <!--#region sekcja wprowadzenie danych-->
         <!--rysunek slupa-->
         <Image Grid.Row="5" Grid.Column="3" Grid.RowSpan="6" Grid.ColumnSpan="4"
-               Source="C:\Users\huber\source\repos\OWS-WSIZ\OWS-WSIZ\images\SlupPrzelotowy.PNG" />
+               Source="..\Resource\slupPrzelotowy.PNG" />
 
         <Label Content="Słup przelotowy" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Bottom"
                Grid.Row="3" Grid.ColumnSpan="4" FontSize="13">
@@ -362,6 +364,14 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
+
+        <!--NrProjektu-->
+        <Label Content="Nr. proj.:" Grid.Column="9" Grid.Row="13" VerticalAlignment="Top"
+               HorizontalAlignment="Right"/>
+        <TextBox x:Name="NrProjektu" Grid.Column="10" Grid.Row="13" VerticalAlignment="Top"
+                 MaxWidth="50" Height="20" Style="{StaticResource textBoxInError}"
+                 HorizontalAlignment="Stretch"/>
+
         <!--combo słupy-->
         <Label Content="Typ słupa:" Grid.Column="3" Grid.Row="13" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
         <ComboBox Grid.Column="3" Grid.Row="14" x:Name="ComboSlupy" MaxHeight="20" MaxWidth="50"
@@ -420,7 +430,7 @@
         <TextBlock x:Name="Potwierdzenie"  Grid.Column="8" Grid.ColumnSpan="3" Grid.Row="20" HorizontalAlignment="Right" VerticalAlignment="Center">
             <TextBlock.Style>
                 <Style>
-                    <Setter Property="TextBlock.FontSize" Value="12" />
+                    <Setter Property="TextBlock.FontSize" Value="10" />
                     <Setter Property="TextBlock.Foreground" Value="DarkGreen" />
                     <Setter Property="TextBlock.Background" Value="LightGreen" />
                 </Style>

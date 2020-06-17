@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OWS.Models
+namespace OWS.Services
 {
     /// <summary>
     /// Klasa Helper 
