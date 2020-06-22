@@ -22,7 +22,7 @@ namespace OWS.Models
         /// obiekty typu StrefaKlimatyczna 
         /// </summary>
         /// <returns>zwraca Liste typu StrefaKlimatyczna</returns>
-        public List<StrefaKlimatyczna> ZalSKlimat()
+        public static List<StrefaKlimatyczna> ZalSKlimat()
         {
             {
                 var Lista = new List<StrefaKlimatyczna>

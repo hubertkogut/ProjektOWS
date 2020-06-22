@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Caliburn.Micro;
 using OWS.Models;
 using OWS.Services;
+using static OWS.Models.StrefaKlimatyczna;
 
 namespace OWS.ViewModels
 {
@@ -23,8 +24,8 @@ namespace OWS.ViewModels
             _valid = valid;
             _data = data;
 
-            StrefaKlimatyczna tmp = new StrefaKlimatyczna();
-            SKlimat = new BindableCollection<StrefaKlimatyczna>(tmp.ZalSKlimat());
+            
+            SKlimat = new BindableCollection<StrefaKlimatyczna>(ZalSKlimat());
         }
 
 

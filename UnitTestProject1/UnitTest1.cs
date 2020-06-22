@@ -6,35 +6,10 @@ using OWS.ViewModels;
 
 namespace UnitTestProject1
 {
-    //[TestClass]
-    //public class UnitTest1
-    //{
-    //    [TestMethod]
-    //    public void NaciagTest()
-    //    {
-
-    //        NaciagPodstawowy z = new NaciagPodstawowy
-    //        {
-    //            Naciag35 = 20,
-    //            Naciag50 = 30,
-    //            Naciag75 = 40,
-    //            Naciag100 = 50
-    //        };
-    //        float oczekiwane = 30;
-    //        float rzeczywiste;
-    //        float x = 55;
-    //        rzeczywiste = NaciagPodstawowy.Naciag(x, z);
-    //        Assert.AreEqual(oczekiwane, rzeczywiste);
-    //    }
-
-    //    [TestMethod]
-    //    public void StrefyTest()
-    //    {
-    //        SlupPrzelotowyViewModel a = new SlupPrzelotowyViewModel();
-    //        int b = a.SKlimat.Count;
-    //        int c = 2;
-    //        Assert.AreEqual(c, b);
-    //    }
+    [TestClass]
+    public class UnitTest1
+    {
+    }
 
     //    [TestMethod]
     //    public void valKatAlfaTest()
