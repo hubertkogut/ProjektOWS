@@ -28,7 +28,7 @@ namespace OWS.Services
 
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("BazaOWS")))
             {
-                if (nrProjektu == null)
+                if (nrProjektu == null || nrProjektu == "")
                 {
                     var output = await connection.QueryAsync<ObliczoneSlupy>(
                         $"select * from ObliczoneSlupy").ConfigureAwait(false);

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Autofac;
 using OWS.Models;
 using OWS.Services;
 
@@ -13,7 +14,9 @@ namespace OWS
 {
     public class Bootstrapper : BootstrapperBase
     {
-        private SimpleContainer _container = new SimpleContainer();
+
+        private static IContainer _container;
+
         public Bootstrapper()
         {
             Initialize();
@@ -21,24 +24,25 @@ namespace OWS
 
         protected override void Configure()
         {
-            _container.Instance(_container);
+            var builder = new ContainerBuilder();
 
-            _container
-                .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
+            builder.RegisterType<WindowManager>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
 
-            _container
-                .PerRequest<IValidation, Validation>();
-            _container
-                .PerRequest<IDataAccess, DataAccess>();
+            builder.RegisterType<EventAggregator>()
+                .AsImplementedInterfaces()
+                .SingleInstance();
+            builder.RegisterType<Validation>().As<IValidation>();
+            builder.RegisterType<DataAccess>().As<IDataAccess>();
 
-            GetType().Assembly.GetTypes()
+            builder.RegisterAssemblyTypes(AssemblySource.Instance.ToArray())
                 .Where(type => type.IsClass)
                 .Where(type => type.Name.EndsWith("ViewModel"))
-                .ToList()
-                .ForEach(viewModelType => _container.RegisterPerRequest(
-                    viewModelType, viewModelType.ToString(), viewModelType));
+                .AsSelf()
+                .InstancePerDependency();
 
+            _container = builder.Build();
         }
 
         protected override void OnStartup(object sender, StartupEventArgs e)
@@ -46,19 +50,34 @@ namespace OWS
             DisplayRootViewFor<ShellViewModel>();
         }
 
-        protected override object GetInstance(Type service, string key)
-        {
-            return _container.GetInstance(service, key);
-        }
-
         protected override IEnumerable<object> GetAllInstances(Type service)
         {
-            return _container.GetAllInstances(service);
+            var type = typeof(IEnumerable<>).MakeGenericType(service);
+            return _container.Resolve(type) as IEnumerable<object>;
+        }
+
+        protected override object GetInstance(Type service, string key)
+        {
+            if (string.IsNullOrWhiteSpace(key))
+            {
+                if (_container.IsRegistered(service))
+                    return _container.Resolve(service);
+            }
+            else
+            {
+                if (_container.IsRegisteredWithKey(key, service))
+                    return _container.ResolveKeyed(key, service);
+            }
+
+            var msgFormat = "Could not locate any instances of contract {0}.";
+            var msg = string.Format(msgFormat, key ?? service.Name);
+            throw new Exception(msg);
         }
 
         protected override void BuildUp(object instance)
         {
-            _container.BuildUp(instance);
+            _container.InjectProperties(instance);
         }
+
     }
 }
