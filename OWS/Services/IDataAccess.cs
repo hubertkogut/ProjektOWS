@@ -9,39 +9,33 @@ namespace OWS.Services
         /// <summary>
         /// Pobiera dane z tabeli ObliczoneSlupy
         /// </summary>
-        /// <returns></returns>
         Task<List<ObliczoneSlupy>> ZaladujTabeleAsync(string nrProjektu);
 
         /// <summary>
         /// Pobiera dane z tabeli Slupy
         /// </summary>
-        /// <returns></returns>
         Task<List<Slupy>> ZaladujSlupyAsync();
 
         /// <summary>
         /// Pobiera dane z tabeli SlupyNarozne
         /// </summary>
-        /// <returns></returns>
         Task<List<Slupy>> ZaladujSlupyNarozneAsync();
 
         /// <summary>
         /// Pobiera dane z tabeli ObcLatarnia
         /// </summary>
         /// <param name="SelectedWiatr"></param>
-        /// <returns></returns>
         Task<List<ObcLatarnia>> ZaladujLatarniaAsync(string SelectedWiatr);
 
         /// <summary>
         /// Pobiera dane z tabeli NaciagPodstawowy
         /// </summary>
-        /// <returns></returns>
         Task<List<NaciagPodstawowy>> ZaladujNaciagPodstawowyAsync();
 
         /// <summary>
         /// Pobiera dane z tabeli ObcKablaWiatremWpPrzelot
         /// </summary>
         /// <param name="SelectedWiatr"></param>
-        /// <returns></returns>
         Task<List<ObcKablaWiatremWpPrzelot>> ZaladujKabelGlownyPrzelotAsync(string SelectedWiatr);
 
         /// <summary>

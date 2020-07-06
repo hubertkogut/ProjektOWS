@@ -7,9 +7,6 @@ using Caliburn.Micro;
 
 namespace OWS.ViewModels
 {
-    /// <summary>
-    /// klasa z logiką widoku StrefaWiatrowaSView
-    /// </summary>
     class StrefaWiatrowaWViewModel : Screen
     {
 

@@ -35,8 +35,8 @@ namespace OWS.Models
         public static float Naciag(float x, NaciagPodstawowy e)
         {
             if (x < 35) { e.NaciagPods = e.Naciag35; }
-            else if (x >= 35 || x < 50) { e.NaciagPods = e.Naciag50; }
-            else if (x >= 50 || x < 75) { e.NaciagPods = e.Naciag75; }
+            else if (x >= 35 && x < 50) { e.NaciagPods = e.Naciag50; }
+            else if (x >= 50 && x < 75) { e.NaciagPods = e.Naciag75; }
             else if (x >= 75) { e.NaciagPods = e.Naciag100; }
             return e.NaciagPods;
 

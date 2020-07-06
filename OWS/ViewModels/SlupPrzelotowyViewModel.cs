@@ -61,8 +61,7 @@ namespace OWS.ViewModels
 
 
 
-        ///<values>full property Pud, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole Pud
+        ///<values>full property Pud
         ///</values>
         private string _nrSlupa = "-";
         public string NrSlupa
@@ -135,13 +134,7 @@ namespace OWS.ViewModels
             }
         }
 
-
-
-
-
-
-        ///<values>full property Pud, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole Pud
+        ///<values>full property Pud
         ///</values>
         private float _pud;
         public float Pud
@@ -154,8 +147,7 @@ namespace OWS.ViewModels
             }
         }
 
-        ///<values>full property Pp, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole Pp
+        ///<values>full property Pp
         ///</values>
         private float _pp;
         public float Pp
@@ -178,8 +170,7 @@ namespace OWS.ViewModels
             }
         }
 
-        ///<values>full property Pr, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole Pr
+        ///<values>full property Pr
         ///</values>
         private float _pr;
         public float Pr
@@ -192,8 +183,7 @@ namespace OWS.ViewModels
             }
         }
 
-        ///<values>full property Pu, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole Pu
+        ///<values>full property Pu
         ///</values>
         private float _pu;
         public float Pu
@@ -206,8 +196,7 @@ namespace OWS.ViewModels
             }
         }
 
-        ///<values>full property Wynik, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole Wynik
+        ///<values>full property Wynik
         ///</values>
         private string _wynik = "----";
         public string Wynik
@@ -224,12 +213,11 @@ namespace OWS.ViewModels
 
 
         // wybór stref klimatycznych
-        ///<values>Propercja SKlimat, kolekcja typu BindableCollection skłądająca się z obiektów typu StrefaKlimatyczna 
+        ///<values>Propercja SKlimat
         ///</values>
         public BindableCollection<StrefaKlimatyczna> SKlimat { get; set; }
 
-        ///<values>full property SelectedSWiatrowa, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole SelectedSWiatrowa
+        ///<values>full property SelectedSWiatrowa
         ///</values>
         private StrefaKlimatyczna _selectedSWiatrowa;
         public StrefaKlimatyczna SelectedSWiatrowa
@@ -254,8 +242,7 @@ namespace OWS.ViewModels
         }
 
 
-        ///<values>full property SelectedSSadziowa, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole SelectedSSadziowa
+        ///<values>full property SelectedSSadziowa
         ///</values>
         private StrefaKlimatyczna _selectedSSadziowa;
         public StrefaKlimatyczna SelectedSSadziowa
@@ -269,7 +256,7 @@ namespace OWS.ViewModels
         }
 
         //latarnia
-        ///<values>Propercja ComboLatarnia, kolekcja typu BindableCollection skłądająca się z obiektów typu ObcLatarnia zawiera metode NotifyOfPropertyChange()
+        ///<values>Propercja ComboLatarnia
         ///</values>
         private BindableCollection<ObcLatarnia> _comboLatarnia;
         public BindableCollection<ObcLatarnia> ComboLatarnia
@@ -281,8 +268,7 @@ namespace OWS.ViewModels
                 NotifyOfPropertyChange(() => ComboLatarnia);
             }
         }
-        ///<values>full property SelectedComboLatarnia, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole SelectedComboLatarnia
+        ///<values>full property SelectedComboLatarnia
         ///</values>
         private ObcLatarnia _selectedComboLatarnia;
         public ObcLatarnia SelectedComboLatarnia
@@ -295,7 +281,7 @@ namespace OWS.ViewModels
             }
         }
 
-        ///<values>Propercja ComboSlupy, kolekcja typu BindableCollection skłądająca się z obiektów typu Slupy zawiera metode NotifyOfPropertyChange()
+        ///<values>Propercja ComboSlupy
         ///</values>
         private BindableCollection<Slupy> _comboSlupy;
         public BindableCollection<Slupy> ComboSlupy
@@ -308,8 +294,7 @@ namespace OWS.ViewModels
             }
         }
 
-        ///<values>full property SelectedSlupy, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole SelectedSlupy
+        ///<values>full property SelectedSlupy
         ///</values>
         private Slupy _selectedSlupy;
         public Slupy SelectedSlupy
@@ -323,8 +308,7 @@ namespace OWS.ViewModels
         }
 
 
-        ///<values>full property Slupy, zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole Slupy
+        ///<values>full property Slupy
         ///</values>
         private ObliczoneSlupy _slup;
         public ObliczoneSlupy Slup
@@ -338,7 +322,7 @@ namespace OWS.ViewModels
         }
 
         ///<summary>Propercje ComboObcKablaWiatremWpPrzelot1 - ComboObcKablaWiatremWpPrzelot5, kolekcja typu BindableCollection 
-        ///skłądająca się z obiektów typu ObcKablaWiatremWpPrzelot zawiera metode NotifyOfPropertyChange()
+        ///skłądająca się z obiektów typu ObcKablaWiatremWpPrzelot
         ///</summary>
         private BindableCollection<ObcKablaWiatremWpPrzelot> _comboObcKablaWiatremWpPrzelot1;
         public BindableCollection<ObcKablaWiatremWpPrzelot> ComboObcKablaWiatremWpPrzelot1
@@ -392,8 +376,6 @@ namespace OWS.ViewModels
         }
 
         ///<summary>Propercje SelectedComboObcKablaWiatremWpPrzelot1 - SelectedComboObcKablaWiatremWpPrzelot5,
-        ///zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole SelectedComboObcKablaWiatremWpPrzelot1-5
         ///</summary>
         private ObcKablaWiatremWpPrzelot _selectedComboObcKablaWiatremWpPrzelot1;
         public ObcKablaWiatremWpPrzelot SelectedComboObcKablaWiatremWpPrzelot1
@@ -447,8 +429,7 @@ namespace OWS.ViewModels
         }
 
         //COMBO PRZYŁĄCZA
-        ///<summary>Propercje ComboObcKablaWiatremWpPrzelot1 - ComboObcKablaWiatremWpPrzelot5, kolekcja typu BindableCollection 
-        ///skłądająca się z obiektów typu NaciagPodstawowy zawiera metode NotifyOfPropertyChange()
+        ///<summary>Propercje ComboObcKablaWiatremWpPrzelot1 - ComboObcKablaWiatremWpPrzelot5
         ///</summary>
         private BindableCollection<NaciagPodstawowy> _comboPrzylaczPrzelot1;
         public BindableCollection<NaciagPodstawowy> ComboPrzylaczPrzelot1
@@ -502,8 +483,6 @@ namespace OWS.ViewModels
         }
 
         ///<summary>Propercje SelectedComboPrzylacz1 - SelectedComboPrzylacz5,
-        ///zawiera metode NotifyOfPropertyChange() dynamicznie 
-        ///aktualizującą pole SelectedComboPrzylacz1-5
         ///</summary>
         private NaciagPodstawowy _selectedComboPrzylaczPrzelot1;
         public NaciagPodstawowy SelectedComboPrzylaczPrzelot1

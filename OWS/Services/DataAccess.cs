@@ -22,7 +22,6 @@ namespace OWS.Services
         /// <summary>
         /// Pobiera dane z tabeli ObliczoneSlupy
         /// </summary>
-        /// <returns></returns>
         public async Task<List<ObliczoneSlupy>> ZaladujTabeleAsync(string nrProjektu)
         {
 
@@ -48,7 +47,6 @@ namespace OWS.Services
         /// <summary>
         /// Pobiera dane z tabeli Slupy
         /// </summary>
-        /// <returns></returns>
         public async Task<List<Slupy>> ZaladujSlupyAsync()
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("BazaOWS")))
@@ -62,7 +60,6 @@ namespace OWS.Services
         /// <summary>
         /// Pobiera dane z tabeli SlupyNarozne
         /// </summary>
-        /// <returns></returns>
         public async Task<List<Slupy>> ZaladujSlupyNarozneAsync()
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("BazaOWS")))
@@ -78,7 +75,6 @@ namespace OWS.Services
         /// Pobiera dane z tabeli ObcLatarnia
         /// </summary>
         /// <param name="SelectedWiatr"></param>
-        /// <returns></returns>
         public async Task<List<ObcLatarnia>> ZaladujLatarniaAsync(string SelectedWiatr)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("BazaOWS")))
@@ -92,7 +88,6 @@ namespace OWS.Services
         /// <summary>
         /// Pobiera dane z tabeli NaciagPodstawowy
         /// </summary>
-        /// <returns></returns>
         public async Task<List<NaciagPodstawowy>> ZaladujNaciagPodstawowyAsync()
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("BazaOWS")))
@@ -107,7 +102,6 @@ namespace OWS.Services
         /// Pobiera dane z tabeli ObcKablaWiatremWpPrzelot
         /// </summary>
         /// <param name="SelectedWiatr"></param>
-        /// <returns></returns>
         public async Task<List<ObcKablaWiatremWpPrzelot>> ZaladujKabelGlownyPrzelotAsync(string SelectedWiatr)
         {
             using (IDbConnection connection = new System.Data.SqlClient.SqlConnection(Helper.CnnVal("BazaOWS")))

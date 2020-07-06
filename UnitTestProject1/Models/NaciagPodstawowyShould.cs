@@ -1,14 +1,18 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using OWS.Models;
+﻿using OWS.Models;
+using Xunit;
 using static OWS.Models.NaciagPodstawowy;
 
 namespace UnitTestProject1.Models
 {
-    [TestClass()]
-    public class NaciagPodstawowyTests
+    
+    public class NaciagPodstawowyShould
     {
-        [TestMethod]
-        public void NaciagTest()
+        [Theory]
+        [InlineData(55, 40)]
+        [InlineData(12.13, 20)]
+        [InlineData(76.2, 50)]
+        [InlineData(99, 50)]
+        public void NaciagTest(float x, int ex)
         {
 
             NaciagPodstawowy z = new NaciagPodstawowy
@@ -18,11 +22,9 @@ namespace UnitTestProject1.Models
                 Naciag75 = 40,
                 Naciag100 = 50
             };
-            float ex = 30;
             float ac;
-            float x = 55;
             ac = Naciag(x, z);
-            Assert.AreEqual(ex, ac);
+            Assert.Equal(ex, ac);
         }
     }
 }

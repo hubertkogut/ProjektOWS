@@ -8,7 +8,6 @@ namespace OWS.Models
 {
     /// <summary>
     /// Klasa Slupy to model tabeli Slupy z bazy danych
-    /// posiada propercje 
     /// </summary>
     public class Slupy
     {

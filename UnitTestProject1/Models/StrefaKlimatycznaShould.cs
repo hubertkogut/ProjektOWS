@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using OWS.Models;
+using Xunit;
 using static OWS.Models.StrefaKlimatyczna;
 
 namespace UnitTestProject1.Models
 {
-    [TestClass()]
-    public class StrefaKlimatycznaTests
+    public class StrefaKlimatycznaShould
     {
-        [TestMethod()]
+        [Fact]
         public void ZalSKlimatTest()
         {
             var list = ZalSKlimat();
-            Assert.AreEqual(2, list.Count);
+
+            Assert.Equal(2, list.Count);
         }
     }
 }
